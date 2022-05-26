@@ -1,29 +1,17 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useState } from 'react'
 import Navbar from './Navbar'
 
 const Viewbus = () => {
-    var viewbus=[
-        {
-            "route":"pathanamthitta to kozhencherry",
-            "busName":"Star",
-            "busRegNo":45678,
-            "ownerName":"Amal",
-            "contactNo":9976543210
-        },
-        {   "route":"kollam to trivandrum",
-            "busName":"zion",
-            "busRegNo":6789,
-            "ownerName":"sharon",
-            "contactNo":9876543210
-        },
-        {
-            "route":"pathanamthitta to idukki",
-            "busName":"blue hill",
-            "busRegNo":87654,
-            "ownerName":"Arun",
-            "contactNo":8976543210
-        }
-    ]
+    var [viewbus,setViewbus]=useState([])
+    var [loadstatus,setLoadstatus]=useState(true)
+    axios.get("http://localhost:5005/api/busview").then(
+      (response)=>{
+        console.log(response.data)
+        setViewbus(response.data)
+        setLoadstatus(false)
+      }
+    )
   return (
     <div>
         <Navbar/>
@@ -32,8 +20,10 @@ const Viewbus = () => {
                 <div className='col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12'>
                     <div className='row g-3'>
                         <div className='col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12'>
-                         <table class="table table-primary table-striped">
-  <thead>
+                        {loadstatus ? <div className="spinner-border" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div> :  <table className="table table-primary table-striped">
+  <thead className='table-success'>
     <tr>
       <th scope="col">Route</th>
       <th scope="col">Bus Name</th>
@@ -54,7 +44,7 @@ const Viewbus = () => {
     </tr>
     })}   
   </tbody>
-</table>
+</table>}
 
                         </div>
 
