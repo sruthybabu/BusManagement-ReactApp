@@ -32,7 +32,7 @@ const Addbus = () => {
             <div className="row g-3">
                 <div className="col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                     <label for="" className="form-label">Route</label>
-                    <input onChange={(e)=>{setRoute(e.target.value)}} placeholder="Eneter route" type="text" className="form-control"/>
+                    <input onChange={(e)=>{setRoute(e.target.value)}} placeholder="Enter route" type="text" className="form-control"/>
                 </div>
                 <div className="col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                     <label for="" className="form-label">Bus Name</label>
