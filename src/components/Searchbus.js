@@ -66,7 +66,7 @@ const Searchbus = () => {
                     <input value={value.contactNo} type="text" className='form-control'/>
                   </div>
                   <div className='col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12'>
-                    <button onClick={()=>{deleteData()}} className='btn btn-danger'>DELETE</button>
+                    <button onClick={()=>{deleteData(value._id)}} className='btn btn-danger'>DELETE</button>
                   </div>
                  </div>
 
