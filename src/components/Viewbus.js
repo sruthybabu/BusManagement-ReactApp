@@ -3,6 +3,24 @@ import React, { useState } from 'react'
 import Navbar from './Navbar'
 
 const Viewbus = () => {
+  const deleteData=(id)=>{
+    const data={"_id":id}
+    console.log(data)
+    axios.post("http://localhost:5005/api/delete",data).then(
+      (response)=>{
+        if(response.data.status=="success")
+        {
+          alert("Successfully deleted")
+        }
+        else
+        {
+          alert("Failed to delete")
+        }
+
+    })
+
+  }
+
     var [viewbus,setViewbus]=useState([])
     var [loadstatus,setLoadstatus]=useState(true)
     axios.get("http://localhost:5005/api/busview").then(
@@ -30,6 +48,7 @@ const Viewbus = () => {
       <th scope="col">Bus Register No</th>
       <th scope="col">Owner Name</th>
       <th scope="col">Contact Number</th>
+      <th scope="col">Action</th>
       
     </tr>
   </thead>
@@ -41,6 +60,7 @@ const Viewbus = () => {
       <td>{value.busRegNo}</td>
       <td>{value.ownerName}</td>
       <td>{value.contactNo}</td>
+      <td><button onClick={()=>{deleteData(value._id)}} className='btn btn-danger'>DELETE</button></td>
     </tr>
     })}   
   </tbody>
