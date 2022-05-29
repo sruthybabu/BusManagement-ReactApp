@@ -6,18 +6,19 @@ const Viewbus = () => {
   const deleteData=(id)=>{
     const data={"_id":id}
     console.log(data)
-    axios.post("http://localhost:5005/api/search",data).then(
+    axios.post("http://localhost:5005/api/delete",data).then(
       (response)=>{
         if(response.data.status=="success")
         {
-          alert("Successfullly deleted")
+          alert("Successfully deleted")
         }
         else
         {
           alert("Failed to delete")
         }
-      
+
     })
+
   }
 
     var [viewbus,setViewbus]=useState([])
