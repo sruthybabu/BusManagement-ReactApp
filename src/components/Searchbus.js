@@ -1,11 +1,38 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import Navbar from './Navbar'
 
 const Searchbus = () => {
+  const deleteData=(id)=>{
+    const data={"_id":id}
+    console.log(data)
+    axios.post("http://localhost:5005/api/delete",data).then(
+      (response)=>{
+        if(response.data.status=="success")
+        {
+          alert("Successfully deleted")
+        }
+        else
+        {
+          alert("Failed to delete")
+        }
+
+    })
+
+  }
+
+
+  const [data,setData]=useState([{"busName":"","busRegNo":"","ownerName":"","contactNo":""}])
     var [route,setRoute]=useState("")
     const subData=()=>{
         const data={"route":route}
         console.log(data)
+        axios.post("http://localhost:5005/api/search",data).then(
+          (response)=>{
+            console.log(response.data)
+            setData(response.data)
+
+        })
     }
   return (
     <div>
@@ -22,6 +49,30 @@ const Searchbus = () => {
                      <button onClick={subData} className="btn btn-primary">SEARCH</button>
                      </div>
                  </div>
+                 {data.map((value,key)=>{
+                   return <div className='row g-3'>
+                   <div className='col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12'>
+                     <label for="" className='form-label'>Bus Name</label>
+                     <input value={value.busName} type="text" className='form-control'/>
+                   </div>
+                   <div className='col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12'>
+                     <label for="" className='form-label'>Bus Register No</label>
+                     <input value={value.busRegNo} type="text" className='form-control'/>
+                   </div>
+                  <div className='col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12'>
+                    <label for="" className='form-label'>Owner Name</label>
+                    <input value={value.ownerName} type="text" className='form-control'/>
+                  </div>
+                  <div className='col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12'>
+                    <label for="" className='form-label'>Contact Number</label>
+                    <input value={value.contactNo} type="text" className='form-control'/>
+                  </div>
+                  <div className='col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12'>
+                    <button onClick={()=>{deleteData(value._id)}} className='btn btn-danger'>DELETE</button>
+                  </div>
+                 </div>
+
+                 })}
 
              </div>
 
